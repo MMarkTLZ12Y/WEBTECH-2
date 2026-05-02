@@ -1,0 +1,545 @@
+/* =========================================================
+   VÁLTOZÓK ÉS KONFIGURÁCIÓ
+   ========================================================= */
+$transition-speed: 0.3s;
+$border-radius-lg: 16px;
+$border-radius-md: 12px;
+$border-radius-sm: 8px;
+
+// Világos színek
+$l-bg: #f4f7f6;
+$l-card: #ffffff;
+$l-text-main: #333333;
+$l-text-sub: #666666;
+$l-border: #e0e0e0;
+$l-input-bg: #fafafa;
+
+// Sötét színek (Deep Dark Theme)
+$d-bg: #121212;
+$d-card: #1e1e1e;
+$d-card-elevated: #252525;
+$d-text-main: #ffffff;
+$d-text-sub: #b0b0b0;
+$d-text-muted: #808080;
+$d-border: #333333;
+$d-input-bg: #2a2a2a;
+$d-accent: #9fa8da;
+$d-primary: #3f51b5;
+$d-error: #ef5350;
+
+/* =========================================================
+   ALAP ELRENDEZÉS (LAYOUT)
+   ========================================================= */
+.oldal-hater {
+  min-height: 100vh;
+  background-color: $l-bg;
+  padding: 24px;
+  box-sizing: border-box;
+  transition: background-color $transition-speed ease, color $transition-speed ease;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* Globális görgetősáv stílus */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+}
+
+/* =========================================================
+   FEJLÉC SZAKASZ (HEADER)
+   ========================================================= */
+.fejlec-kartya {
+  width: 100%;
+  background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+  color: white;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 8px;
+  overflow: hidden;
+
+  .fejlec-tartalom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  }
+
+  .cim-resz {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .fejlec-ikon {
+      font-size: 32px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .fejlec-cim {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+  }
+
+  .gomb-resz {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .felhasznalo-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+/* =========================================================
+   MUNKATERÜLET GRID SYSTEM
+   ========================================================= */
+.admin-munkaterulet {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  align-items: flex-start;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* 1. Oszlop: Regisztráció */
+.regisztracios-oszlop {
+  flex: 0 0 400px;
+  position: sticky;
+  top: 24px;
+
+  @media (max-width: 1100px) {
+    flex: none;
+    position: static;
+    width: 100%;
+  }
+}
+
+.reg-kartya {
+  background: $l-card;
+  border-radius: $border-radius-lg;
+  border: 1px solid $l-border;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.kartya-fejlec-belso {
+  padding: 24px;
+  background: #fafafa;
+  border-bottom: 1px solid $l-border;
+
+  h2, h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: $l-text-main;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.form-tartalom {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+}
+
+.reg-gomb {
+  width: 100%;
+  height: 54px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: $border-radius-sm;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 2. Oszlop: Statisztikák */
+.statisztika-oszlop {
+  flex: 1;
+  min-width: 0;
+}
+
+.szekcio-fejlec {
+  margin-bottom: 24px;
+  padding-left: 4px;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a237e;
+    margin: 0;
+  }
+
+  p {
+    color: $l-text-sub;
+    margin: 4px 0 0 0;
+    font-size: 15px;
+  }
+}
+
+.vizszintes-gorgeto {
+  display: flex;
+  gap: 20px;
+  padding: 8px 4px 20px 4px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+  }
+}
+
+.dolgozo-stat-kartya {
+  min-width: 320px;
+  background: white;
+  border-radius: $border-radius-md;
+  border: 1px solid $l-border;
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.dolgozo-adatok {
+  margin-bottom: 20px;
+
+  .dolgozo-nev {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .dolgozo-email {
+    font-size: 14px;
+    color: #777;
+  }
+}
+
+.stat-sor {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+
+  .stat-cimke {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #888;
+  }
+
+  .stat-ertek {
+    font-weight: 700;
+    color: #1a237e;
+  }
+}
+
+.stat-osszesen-kis {
+  margin-top: 15px;
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: $border-radius-sm;
+  text-align: center;
+
+  .stat-ertek-nagy {
+    display: block;
+    font-size: 28px;
+    font-weight: 900;
+    color: #d32f2f;
+  }
+}
+
+/* =========================================================
+   DARK THEME - PROFESSZIONÁLIS SÖTÉT MÓD FELÜLÍRÁSOK
+   ========================================================= */
+.oldal-hater.dark-theme {
+  background-color: $d-bg;
+  color: $d-text-main;
+
+  /* Görgetősáv sötétítése */
+  &::-webkit-scrollbar-thumb {
+    background: #444;
+  }
+  .vizszintes-gorgeto::-webkit-scrollbar-track {
+    background: #222;
+  }
+  .vizszintes-gorgeto::-webkit-scrollbar-thumb {
+    background: #555;
+  }
+
+  /* Szövegek */
+  .szekcio-fejlec h2 { color: $d-accent; }
+  .szekcio-fejlec p { color: $d-text-sub; }
+
+  /* Kártyák */
+  .reg-kartya, 
+  .dolgozo-stat-kartya {
+    background: $d-card;
+    border-color: $d-border;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Kártya fejlécek - A képed alapján itt volt a fő gond */
+  .kartya-fejlec-belso {
+    background: $d-card-elevated;
+    border-bottom: 1px solid $d-border;
+    
+    h2, h3 {
+      color: #ffffff !important; // Kényszerített fehér szín a címnek
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+  }
+
+  /* Dolgozó kártya részletek */
+  .dolgozo-nev { color: #ffffff !important; }
+  .dolgozo-email { color: $d-text-sub; }
+  .stat-sor { border-bottom-color: #333; }
+  .stat-cimke { color: $d-text-muted; }
+  .stat-ertek { color: $d-accent; }
+  .stat-osszesen-kis {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid $d-border;
+    .stat-ertek-nagy { color: $d-error; }
+  }
+
+  /* =========================================================
+     ANGULAR MATERIAL DEEP OVERRIDES (DARK)
+     ========================================================= */
+  ::ng-deep {
+    /* Form Field Háttér */
+    .mat-mdc-text-field-wrapper {
+      background-color: $d-input-bg !important;
+      transition: background-color 0.2s ease;
+    }
+
+    /* Input szöveg */
+    .mat-mdc-input-element {
+      color: #ffffff !important;
+      caret-color: $d-accent !important;
+    }
+
+    /* Lebegő feliratok (Labels) - Fehérre állítva a láthatóságért */
+    .mdc-floating-label, 
+    .mat-mdc-form-field-label mat-label {
+      color: rgba(255, 255, 255, 0.9) !important; // Erős fehérség
+      font-weight: 500 !important;
+    }
+
+    /* Fókuszált állapot */
+    .mdc-text-field--focused {
+      .mdc-floating-label {
+        color: $d-accent !important;
+      }
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: $d-accent !important;
+        border-width: 2px !important;
+      }
+    }
+
+    /* Outline (Keret) színe alaphelyzetben */
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Hibaállapot */
+    .mat-mdc-form-field-error {
+      color: $d-error !important;
+    }
+
+    /* Autofill javítás */
+    input:-webkit-autofill {
+      -webkit-text-fill-color: #ffffff !important;
+      -webkit-box-shadow: 0 0 0px 1000px $d-input-bg inset !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* Material Gombok sötétben */
+    .mat-mdc-raised-button.mat-primary {
+      background-color: $d-primary !important;
+      color: #ffffff !important;
+      &:hover {
+        background-color: lighten($d-primary, 5%) !important;
+      }
+    }
+  }
+
+  /* Dialógus ablakok (ha vannak) */
+  .dark-theme-dialog {
+    .mdc-dialog__surface {
+      background-color: $d-card !important;
+      color: white !important;
+    }
+  }
+}
+
+/* =========================================================
+   ANIMÁCIÓK
+   ========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dolgozo-stat-kartya {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* admin.scss kiegészítés */
+
+.admin-reszletek-lista {
+  margin: 15px 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+
+  .lista-alcim {
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .reszletek-gorgeto {
+    max-height: 120px;
+    overflow-y: auto;
+    padding-right: 5px;
+
+    /* Görgetősáv a kis listához */
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+  }
+
+  .reszlet-sor {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .reszlet-datum { color: #888; font-family: monospace; }
+    .reszlet-kat { flex: 1; margin: 0 10px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .reszlet-ido { font-weight: bold; color: #3f51b5; }
+  }
+
+  .nincs-adat {
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 10px 0;
+  }
+}
+
+/* Sötét módosítások a listához */
+.dark-theme .admin-reszletek-lista {
+  background: rgba(255, 255, 255, 0.05);
+  
+  .lista-alcim { color: #aaa; }
+  .reszlet-sor {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    .reszlet-kat { color: #e0e0e0; }
+    .reszlet-ido { color: #9fa8da; }
+  }
+}
+
+.admin-uzenet-szekcio {
+  margin-top: 15px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  
+  textarea { min-height: 40px; font-size: 13px; }
+}
+
+.admin-het-valaszto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+  .het-kijelzo {
+    font-weight: bold;
+    color: #3f51b5;
+    margin-left: 34px;
+    font-size: 16px;
+  }
+
+  .het-navigacio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.dark-theme .admin-het-valaszto {
+  background: #1e1e1e;
+  .het-kijelzo { color: #9fa8da; }
+} 
