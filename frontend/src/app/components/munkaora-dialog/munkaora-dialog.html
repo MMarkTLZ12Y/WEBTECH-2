@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>{{ szerkesztesMod ? 'Munkaóra szerkesztése' : 'Új munkaóra rögzítése' }}</h2>
+
+<mat-dialog-content>
+  <p>Töltsd ki az alábbi adatokat a rögzítéshez:</p>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Dátum</mat-label>
+    <input matInput type="date" [(ngModel)]="datum" required>
+  </mat-form-field>
+
+  <div style="display: flex; gap: 15px; margin-top: 10px;">
+    <mat-form-field appearance="outline" style="flex: 1;">
+      <mat-label>Kezdés</mat-label>
+      <input matInput type="time" [(ngModel)]="kezdes" (ngModelChange)="idokSzamitasa()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="flex: 1;">
+      <mat-label>Befejezés</mat-label>
+      <input matInput type="time" [(ngModel)]="befejezes" (ngModelChange)="idokSzamitasa()">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Ledolgozott idő (automatikusan számolva)</mat-label>
+    <input matInput type="text" [(ngModel)]="formazottIdo" readonly>
+  </mat-form-field>
+
+  <!-- ÚJ: Kategória választó (Chipek) -->
+  <div style="margin: 15px 0;">
+    <p style="margin-bottom: 8px; color: #555; font-size: 14px;">Feladat típusa (kötelező):</p>
+    <mat-chip-listbox [(ngModel)]="kategoria">
+      @for (kat of valaszthatoKategoriak; track kat) {
+        <mat-chip-option [value]="kat">{{ kat }}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+
+  <!-- A leírás immár opcionális -->
+  <mat-form-field appearance="outline" class="full-width" style="margin-top: 15px;">
+    <mat-label>Részletes leírás (Opcionális)</mat-label>
+    <textarea matInput [(ngModel)]="leiras" rows="3" placeholder="Pl.: Miskolc-Komárno üdítő szállítás"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="megse()">Mégse</button>
+  <button mat-flat-button color="primary" (click)="mentes()">Mentés</button>
+</mat-dialog-actions>
