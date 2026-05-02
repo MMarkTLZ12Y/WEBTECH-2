@@ -1,0 +1,150 @@
+<div class="oldal-hater" [class.dark-theme]="isDarkMode">
+  
+  <mat-card class="fejlec-kartya">
+    <!-- FIGYELEM: A mat-card-header és mat-card-title törölve lett a tökéletes középre igazításért! -->
+    <div class="fejlec-tartalom">
+      <div class="cim-resz">
+        <mat-icon class="fejlec-ikon">business</mat-icon>
+        <span class="fejlec-cim">Kovács Bt. - Munkaóra Nyilvántartó</span>
+      </div>
+      <div class="gomb-resz">
+        
+        <button mat-icon-button (click)="toggleDarkMode()" style="color: white;">
+          <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <div class="felhasznalo-info" *ngIf="bejelentkezettFelhasznalo">
+          <mat-icon>account_circle</mat-icon>
+          <span>{{ bejelentkezettFelhasznalo.nev }}</span>
+        </div>
+        <button mat-stroked-button class="kijelentkezes-gomb" (click)="kijelentkezes()">Kijelentkezés</button>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="fo-kartya">
+    <mat-card-header class="kartya-fejlec-belso">
+      <mat-card-title>
+        Üdvözöljük a munkaterületen! 👋
+        <p class="alcim">Kovács Bt. | Munkaidő naplózás és statisztika</p>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="kartyatartalom">
+      
+        <!-- dashboard.html -->
+        <div class="admin-uzenet-banner" *ngIf="bejelentkezettFelhasznalo?.uzenet">
+          <mat-card class="uzenet-kartya">
+            <mat-icon class="uzenet-ikon">info</mat-icon>
+            <div class="uzenet-tartalom">
+              <div class="uzenet-cimke">Üzenet az adminisztrátortól:</div>
+              <div class="uzenet-szoveg">{{ bejelentkezettFelhasznalo.uzenet }}</div>
+            </div>
+          </mat-card>
+        </div>
+      @if (rogzitettOrak.length > 0) {
+        <div class="statisztika-doboz">
+          <div class="stat-reszletek">
+            <div class="stat-elem">
+              <div class="stat-szoveg">Heti munkaidő:</div>
+              <div class="stat-szam kicsi">{{ hetiOra | idoFormazo }}</div>
+            </div>
+            <div class="stat-elem">
+              <div class="stat-szoveg">Havi munkaidő:</div>
+              <div class="stat-szam kicsi">{{ haviOra | idoFormazo }}</div>
+            </div>
+            <div class="stat-elem">
+              <div class="stat-szoveg">Éves munkaidő:</div>
+              <div class="stat-szam kicsi">{{ eviOra | idoFormazo }}</div>
+            </div>
+          </div>
+          <hr class="stat-vonal">
+          <div class="stat-osszesen">
+            <div class="stat-szoveg-nagy">Összesített munkaidő a Kovács Bt.-nél:</div>
+            <div class="stat-szam-nagy">{{ osszesOra | idoFormazo }}</div>
+          </div>
+        </div>
+
+        <div class="akcio-sav">
+          <div class="osztott-gomb-csoport">
+            <button mat-raised-button color="accent" class="fo-gomb" (click)="emailGeneralas()">
+              <mat-icon>email</mat-icon> Heti összefoglaló küldése
+            </button>
+            <button mat-raised-button color="accent" class="nyil-gomb" [matMenuTriggerFor]="emailMenu">
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+          </div>
+
+          <mat-menu #emailMenu="matMenu">
+            <button mat-menu-item (click)="vagolapraMasolas()">
+              <mat-icon>content_copy</mat-icon>
+              <span>Másolás vágólapra</span>
+            </button>
+          </mat-menu>
+        </div>
+      }
+
+      <div class="uj-rogzites-sav">
+        <button mat-flat-button color="primary" class="gomb-kiemelt" (click)="ujMunkaoraAblakNyitasa()">
+          <mat-icon>add</mat-icon> Új munkaóra rögzítése
+        </button>
+      </div>
+
+      @if (rogzitettOrak.length === 0) {
+        <div class="ures-allapot">
+          <mat-icon>event_note</mat-icon>
+          <p>Még nincsenek rögzített munkaóráid a rendszerben.</p>
+        </div>
+      } 
+      @else {
+        <div class="ora-lista">
+          @for (evCsoport of csoportositottOrak; track evCsoport.ev) {
+            <div class="ev-doboz">
+              <h2 class="ev-fejlec">{{ evCsoport.ev }}</h2>
+
+              @for (hetCsoport of evCsoport.hetek; track hetCsoport.hetFelirat) {
+                <div class="het-doboz">
+                  <h3 class="het-fejlec">{{ hetCsoport.hetFelirat }}</h3>
+
+                  @for (napCsoport of hetCsoport.napok; track napCsoport.napFelirat) {
+                    <div class="nap-doboz">
+                      <h4 class="nap-fejlec">{{ napCsoport.napFelirat }}</h4>
+
+                      @for (ora of napCsoport.orak; track ora._id) {
+                        <div class="ora-elem">
+                          <div class="ora-fejlec">
+                            <div class="ora-adatok">
+                              <span class="ora-idopontok" *ngIf="ora.kezdes && ora.befejezes">
+                                {{ ora.kezdes }} - {{ ora.befejezes }} &nbsp; | &nbsp;
+                              </span>
+                              <span class="ora-szam">{{ ora.orakSzama | idoFormazo }}</span>
+                            </div>
+                            
+                            <div class="ora-gombok">
+                              <button mat-icon-button color="primary" (click)="oraSzerkesztese(ora)">
+                                <mat-icon>edit</mat-icon>
+                              </button>
+                              <button mat-icon-button color="warn" (click)="oraTorlese(ora._id)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="ora-leiras">
+                            <span class="kategoria-cimke">{{ ora.kategoria }}</span>
+                            @if (ora.leiras) {
+                              <span class="reszletes-szoveg"> - {{ ora.leiras }}</span>
+                            }
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
