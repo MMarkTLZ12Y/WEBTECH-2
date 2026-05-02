@@ -1,0 +1,95 @@
+/* Bekötjük az Angular Material egyik beépített témáját (kék/rózsaszín) */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* =======================================================
+   A MEGOLDÁS ITT VAN: height: 100% helyett min-height: 100vh
+   ======================================================= */
+html, body {
+  min-height: 100vh !important; 
+  height: auto !important; /* Engedjük, hogy a tartalommal együtt nyúljon lefelé */
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f4f7f6; /* Halvány háttér világos módban */
+  transition: background-color 0.3s ease;
+}
+
+/* SÖTÉT MÓD GLOBÁLIS BEÁLLÍTÁSAI */
+body.dark-theme, html.dark-theme {
+  background-color: #121212 !important; /* Ez nyúlik majd le a lap legeslegaljáig! */
+}
+
+/* Felugró ablak sötétítése */
+.dark-theme-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #1e1e1e !important;
+  color: white !important;
+}
+.dark-theme-dialog mat-label, .dark-theme-dialog input, .dark-theme-dialog textarea {
+  color: white !important;
+}
+
+/* =========================================================
+   GLOBÁLIS SÖTÉT MÓD BEÁLLÍTÁSOK (DIALOG ABLAKOKHOZ IS)
+   ========================================================= */
+
+body.dark-theme {
+  /* Alap háttér és szövegszín */
+  background-color: #121212;
+  color: #ffffff;
+
+  /* Felugró ablakok (MatDialog) sötét módja */
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+
+  /* Címsor (Új munkaóra rögzítése) */
+  .mat-mdc-dialog-title {
+    color: #ffffff !important;
+  }
+
+  /* Dialógus tartalma (Töltsd ki az alábbi adatokat, Feladat típusa, stb.) */
+  .mat-mdc-dialog-content {
+    color: #e0e0e0 !important;
+  }
+
+  /* Beviteli mezők (Inputok) sötét módja a dialóguson belül */
+  .mat-mdc-text-field-wrapper {
+    background-color: #2c2c2c !important;
+  }
+
+  .mat-mdc-input-element {
+    color: #ffffff !important;
+  }
+
+  /* A feliratok a beviteli mezőkben (Dátum, Kezdés, Befejezés) */
+  .mat-mdc-form-field-label mat-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* Inaktív/olvasható mező (Ledolgozott idő automatikusan számolva) szövege */
+  .mat-mdc-form-field-disabled .mat-mdc-input-element {
+    color: #9fa8da !important; /* Egy kis kékesszürke szín, hogy látszódjon a számított érték */
+  }
+
+  /* Chip-ek (Feladat típusa: Könyvelés, Szállítás stb.) sötét módja */
+  .mdc-evolution-chip {
+    background-color: #2c2c2c !important;
+  }
+  .mdc-evolution-chip__text-label {
+    color: #e0e0e0 !important;
+  }
+  
+  /* Ha egy chip ki van választva */
+  .mdc-evolution-chip--selected {
+    background-color: #3f51b5 !important; /* vagy amilyen az elsődleges színed */
+  }
+  .mdc-evolution-chip--selected .mdc-evolution-chip__text-label {
+    color: #ffffff !important;
+  }
+
+  /* A "Mégse" gomb szövege */
+  .mat-mdc-button:not(:disabled) {
+    color: #e0e0e0;
+  }
+}
