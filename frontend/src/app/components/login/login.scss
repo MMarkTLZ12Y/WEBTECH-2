@@ -1,0 +1,19 @@
+/* Ez középre rendezi a kártyát a képernyőn */
+.login-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; 
+}
+
+/* Beállítjuk a kártya méretét */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* A beviteli mezők kitöltik a rendelkezésre álló helyet */
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
